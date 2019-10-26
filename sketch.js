@@ -1,5 +1,6 @@
 var rg
 var button
+var displayRate = 200
 
 var grammarJSON  = {
   "<start>":[
@@ -127,21 +128,57 @@ var grammarJSON  = {
 function setup() {
   createCanvas(600,600)
   background(0)
-  for (var i = 1; i < 6; i++) {
 
+  createGrammar()
+}
+
+function draw() {
+  if(frameCount%displayRate == 1 )
+  {
+    showHaiku(random(width), random(height), getOrientation())
+  }
+}
+
+function getOrientation(){
+  if(random(0,1) > 0.5)
+  {
+    return 'horizontal'
+  }
+  else {
+    return 'vertical'
+  }
+}
+
+function createGrammar(){
+  for (var i = 1; i < 6; i++) {
     for (var j = 0; j < 100; j++) {
       grammarJSON["<"+i+">"].push(RiTa.randomWord(i))
     }
     console.log(grammarJSON["<"+i+">"])
   }
-
   rg = new RiGrammar()
   rg.load(grammarJSON)
   button = createButton('generate')
-  button.mousePressed(newHaiku)
+  button.mousePressed(showHaiku)
 }
 
 function newHaiku() {
   var result = rg.expand()
   createP(result)
+}
+
+function showHaiku(haikuX, haikuY, orientation) {
+  push()
+
+  fill(255, 255, 255, 125)
+  var result = rg.expand()
+  var seperate = result.split(' <br/> ')
+
+  for (var variable in seperate) {
+    text(seperate[variable], haikuX, haikuY+(variable*10))
+    console.log(seperate[variable]);
+    console.log(orientation);
+  }
+
+  pop()
 }
