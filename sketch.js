@@ -3,33 +3,33 @@ var button
 
 var grammarJSON  = {
   "<start>":[
-    "5-line <br/> 7-line <br/> 5-line"
+    "<5-line> <br/> <7-line> <br/> <5-line>"
   ],
-  "5-line":[
-    "1 4",
-    "1 3 1",
-    "1 1 3",
-    "1 2 2",
-    "1 2 1 1",
-    "1 1 2 1",
-    "1 1 1 2",
-    "1 1 1 1 1",
-    "2 3",
-    "2 2 1",
-    "2 1 2",
-    "2 1 1 1",
-    "3 2",
-    "3 1 1",
-    "4 1",
-    "5"
+  "<5-line>":[
+    "<1> <4>",
+    "<1> <3> <1>",
+    "<1> <1> <3>",
+    "<1> <2> <2>",
+    "<1> <2> <1> <1>",
+    "<1> <1> <2> <1>",
+    "<1> <1> <1> <2>",
+    "<1> <1> <1> <1> <1>",
+    "<2> <3>",
+    "<2> <2> <1>",
+    "<2> <1> <2>",
+    "<2> <1> <1> <1>",
+    "<3> <2>",
+    "<3> <1> <1>",
+    "<4> <1>",
+    "<5>"
   ],
-  "7-line":[
-    "1 1 5-line",
-    "2 5-line",
-    "5-line 1 1",
-    "5-line 2"
+  "<7-line>":[
+    "<1> <1> <5-line>",
+    "<2> <5-line>",
+    "<5-line> <1> <1>",
+    "<5-line> <2>"
   ],
-  "1":[
+  "<1>":[
     "red",
     "white",
     "black",
@@ -69,7 +69,7 @@ var grammarJSON  = {
     "cranes",
     "fish"
   ],
-  "2":[
+  "<2>":[
     "drifting",
     "purple",
     "mountains",
@@ -93,7 +93,7 @@ var grammarJSON  = {
     "sparkling",
     "snowflake"
   ],
-  "3":[
+  "<3>":[
     "sunrises",
     "pheasant farms",
     "people farms",
@@ -106,7 +106,7 @@ var grammarJSON  = {
     "peasant rain",
     "sad snow fall"
   ],
-  "4":[
+  "<4>":[
     "aluminum",
     "yakitori",
     "the east village",
@@ -114,7 +114,7 @@ var grammarJSON  = {
     "chrysanthemums",
     "cherry blossoms"
   ],
-  "5":[
+  "<5>":[
     "resolutional",
     "non-elemental",
     "rolling foothills rise",
@@ -125,15 +125,18 @@ var grammarJSON  = {
 }
 
 function setup() {
-  noCanvas()
+  createCanvas(600,600)
+  background(0)
+  for (var i = 1; i < 6; i++) {
 
-  for (var i = 0; i < 100; i++) {
-    console.log(RiTa.randomWord(2))
+    for (var j = 0; j < 100; j++) {
+      grammarJSON["<"+i+">"].push(RiTa.randomWord(i))
+    }
+    console.log(grammarJSON["<"+i+">"])
   }
 
   rg = new RiGrammar()
   rg.load(grammarJSON)
-
   button = createButton('generate')
   button.mousePressed(newHaiku)
 }
