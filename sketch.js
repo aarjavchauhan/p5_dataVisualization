@@ -1,5 +1,5 @@
-var rg;
-var button;
+var rg
+var button
 
 var grammarJSON  = {
   "<start>":[
@@ -125,16 +125,20 @@ var grammarJSON  = {
 }
 
 function setup() {
-  noCanvas();
+  noCanvas()
 
-  rg = new RiGrammar();
-  rg.load(grammarJSON);
+  for (var i = 0; i < 100; i++) {
+    console.log(RiTa.randomWord(2))
+  }
 
-  button = createButton('generate');
-  button.mousePressed(newHaiku);
+  rg = new RiGrammar()
+  rg.load(grammarJSON)
+
+  button = createButton('generate')
+  button.mousePressed(newHaiku)
 }
 
 function newHaiku() {
-  var result = rg.expand();
-  createP(result);
+  var result = rg.expand()
+  createP(result)
 }
