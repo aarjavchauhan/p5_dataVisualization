@@ -158,13 +158,6 @@ function createGrammar(){
   }
   rg = new RiGrammar()
   rg.load(grammarJSON)
-  button = createButton('generate')
-  button.mousePressed(showHaiku)
-}
-
-function newHaiku() {
-  var result = rg.expand()
-  createP(result)
 }
 
 function showHaiku(haikuX, haikuY, orientation) {
