@@ -133,10 +133,7 @@ function setup() {
 }
 
 function draw() {
-  if(frameCount%displayRate == 1 )
-  {
-    showHaiku(random(width), random(height), getOrientation())
-  }
+  showHaiku(random(width), random(height), getOrientation())
 }
 
 function getOrientation(){
@@ -154,24 +151,37 @@ function createGrammar(){
     for (var j = 0; j < 100; j++) {
       grammarJSON["<"+i+">"].push(RiTa.randomWord(i))
     }
-    console.log(grammarJSON["<"+i+">"])
   }
   rg = new RiGrammar()
   rg.load(grammarJSON)
 }
 
 function showHaiku(haikuX, haikuY, orientation) {
+
   push()
+  if(frameCount%displayRate == 1 ){
+    var result = rg.expand()
+    var seperate = result.split(' <br/> ')
 
-  fill(255, 255, 255, 125)
-  var result = rg.expand()
-  var seperate = result.split(' <br/> ')
+    //color variations
+    // var randomRed = random(255)
+    // var randomGreen = random(255)
+    // var randomBlue = random(255)
 
-  for (var variable in seperate) {
-    text(seperate[variable], haikuX, haikuY+(variable*10))
-    console.log(seperate[variable]);
-    console.log(orientation);
+    for (var i = 0; i < seperate.length; i ++) {
+      var eachLetterArray = seperate[i].split('')
+      for(var j = 0; j < eachLetterArray.length; j++)
+      {
+        //fill with white transparency
+        fill(255, 255, 255, random(100, 255))
+        if(orientation == 'horizontal'){
+          text(eachLetterArray[j], haikuX+(j*5), haikuY+(i*10))
+        }
+        else {
+          text(eachLetterArray[j], haikuX+(i*10), haikuY+(j*5))
+        }
+      }
+    }
   }
-
   pop()
 }
