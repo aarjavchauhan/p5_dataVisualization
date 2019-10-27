@@ -175,10 +175,10 @@ function showHaiku(haikuX, haikuY, orientation) {
         //fill with white transparency
         fill(255, 255, 255, random(100, 255))
         if(orientation == 'horizontal'){
-          text(eachLetterArray[j], haikuX+(j*5), haikuY+(i*10))
+          text(eachLetterArray[j], haikuX+(j*10), haikuY+(i*10))
         }
         else {
-          text(eachLetterArray[j], haikuX+(i*10), haikuY+(j*5))
+          text(eachLetterArray[j], haikuX+(i*10), haikuY+(j*10))
         }
       }
     }
