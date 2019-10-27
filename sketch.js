@@ -128,7 +128,6 @@ var grammarJSON  = {
 function setup() {
   createCanvas(600,600)
   background(0)
-
   createGrammar()
 }
 
@@ -136,6 +135,7 @@ function draw() {
   showHaiku(random(width), random(height), getOrientation())
 }
 
+//Returns orientation of the haiku
 function getOrientation(){
   if(random(0,1) > 0.5)
   {
@@ -146,8 +146,10 @@ function getOrientation(){
   }
 }
 
+//Read and create the grammar rules & add words to the lexicon
 function createGrammar(){
   for (var i = 1; i < 6; i++) {
+    //pushing 100 words for each syllable type in the grammar
     for (var j = 0; j < 100; j++) {
       grammarJSON["<"+i+">"].push(RiTa.randomWord(i))
     }
@@ -156,6 +158,7 @@ function createGrammar(){
   rg.load(grammarJSON)
 }
 
+//display the Haiku
 function showHaiku(haikuX, haikuY, orientation) {
 
   push()
